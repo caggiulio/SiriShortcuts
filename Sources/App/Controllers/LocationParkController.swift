@@ -16,6 +16,7 @@ final class LocationParkController: RouteCollection {
         
         locationParks.post(LocationPark.self, use: create)
         locationParks.get(use: index)
+        locationParks.delete(LocationPark.parameter, use: delete)
     }
     
     func create(_ request: Request, _ locationPark: LocationPark)throws -> Future<LocationPark> {
@@ -30,6 +31,10 @@ final class LocationParkController: RouteCollection {
         } else {
             return LocationPark.query(on: request).all()
         }
+    }
+    
+    func delete(_ request: Request)throws -> Future<HTTPStatus> {
+        return try request.parameters.next(LocationPark.self).delete(on: request).transform(to: .noContent)
     }
 }
 
