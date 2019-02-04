@@ -12,9 +12,9 @@ public func configure(
     try routes(router)
     services.register(router, as: Router.self)
     
-    /*services.register { _ in
-        NIOServerConfig.init(hostname: "0.0.0.0", port: 8082, backlog: 256, workerCount: ProcessInfo.processInfo.activeProcessorCount, maxBodySize: 1_000_000, reuseAddress: true, tcpNoDelay: true)
-    }*/
+    services.register { _ in
+        NIOServerConfig.init(hostname: "0.0.0.0", port: 8083, backlog: 256, workerCount: ProcessInfo.processInfo.activeProcessorCount, maxBodySize: 1_000_000, reuseAddress: true, tcpNoDelay: true)
+    }
     
     var databases = DatabasesConfig()
     //let config = PostgreSQLDatabaseConfig(hostname: "localhost", username: "giulio-skylabs", database: "parks")
