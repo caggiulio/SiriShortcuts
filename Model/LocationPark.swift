@@ -10,21 +10,21 @@ import FluentPostgreSQL
 import Foundation
 import Vapor
 
-final class Location: Content {
+final class LocationPark: Content, Parameter {
     var id: Int?
     
     var lat: Double
     var lng: Double
-    var date: String
+    var timestamp: String?
     var street: String
     
-    init(lat: Double, lng: Double, date: String, street: String) {
+    init(lat: Double, lng: Double, street: String) {
         self.lat = lat
         self.lng = lng
-        self.date = date
+        self.timestamp = Date().description
         self.street = street
     }
 }
 
-extension Location: PostgreSQLModel {}
-extension Location: Migration {}
+extension LocationPark: PostgreSQLModel {}
+extension LocationPark: Migration {}

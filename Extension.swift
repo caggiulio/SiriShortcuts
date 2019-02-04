@@ -6,3 +6,15 @@
 //
 
 import Foundation
+public extension String {
+    
+    public func stringToDate() -> String {
+        let date = Date(timeIntervalSince1970: TimeInterval.init(Date().timeIntervalSince1970.description)!)
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = DateFormatter.Style.medium //Set time style
+        dateFormatter.dateStyle = DateFormatter.Style.medium //Set date style
+        dateFormatter.timeZone = TimeZone(abbreviation: "GMT+0:00")
+        let localDate = dateFormatter.string(from: date)
+        return localDate
+    }
+}

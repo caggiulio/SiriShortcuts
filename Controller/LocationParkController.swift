@@ -19,12 +19,14 @@ final class LocationParkController: RouteCollection {
     }
     
     func create(_ request: Request, _ locationPark: LocationPark)throws -> Future<LocationPark> {
+        locationPark.timestamp = Date().description.stringToDate()
         return locationPark.save(on: request)
     }
     
     func index(_ request: Request)throws -> Future<[LocationPark]> {
         if let dateReq = try? request.query.get(String.self, at: "date") {
-            return LocationPark.query(on: request).filter(\.date == dateReq).all()
+            //timestamp >= dateReq -> se ci sono timestamp che contengono quella data
+            return LocationPark.query(on: request).filter(\.timestamp >= dateReq).all()
         } else {
             return LocationPark.query(on: request).all()
         }
@@ -34,6 +36,6 @@ final class LocationParkController: RouteCollection {
 struct LocationParkContent: Content {
     var lat: Double?
     var lng: Double?
-    var date: String?
+    var timestamp: String?
     var street: String?
 }
