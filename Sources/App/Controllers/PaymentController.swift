@@ -41,7 +41,11 @@ final class PaymentController: RouteCollection {
     }
     
     func totalAmount(_ request: Request)throws -> Future<Double> {
-        return PaymentWallet.query(on: request).sum(\.amount, default: 0)
+        if let dateReq = try? request.query.get(String.self, at: "date") {
+            return PaymentWallet.query(on: request).filter(\.timestamp >= dateReq).sum(\.amount, default: 0)
+        } else {
+            return PaymentWallet.query(on: request).sum(\.amount, default: 0)
+        }
     }
     
     /*func test(_ request: Request)throws -> Future<PaymentWallet> {
