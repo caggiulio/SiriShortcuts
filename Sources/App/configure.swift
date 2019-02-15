@@ -28,5 +28,6 @@ public func configure(
     
     var migrations = MigrationConfig()
     migrations.add(model: LocationPark.self, database: .psql)
+    migrations.add(model: PaymentWallet.self, database: .psql)
     services.register(migrations)
 }
